@@ -1,0 +1,1 @@
+{"vzFilter":{"attributes":{"dn":"uni/tn-Tenant_ARYA10/flt-SSH","name":"SSH","rn":"flt-SSH","status":"created"},"children":[{"vzEntry":{"attributes":{"dn":"uni/tn-VTenant12/flt-SSH/e-TCP-SSH","name":"TCP-SSH","etherT":"ip","prot":"tcp","dFromPort":"22","dToPort":"22","rn":"e-TCP-SSH","status":"created"},"children":[]}}]}}

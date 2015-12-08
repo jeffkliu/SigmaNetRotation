@@ -1,0 +1,54 @@
+hostname {{hostname}}
+
+
+username {{username}}cisco password {{password}}
+
+banner motd *
+{{banner_motd}}
+*
+
+ip domain-name {{domain}}
+
+vtp mode {{vtp_mode}}
+
+snmp-server contact {{snmp.contact}}
+snmp-server location {{snmp.location}}
+snmp-server community {{snmp.ro_string}} group network-operator
+snmp-server community {{snmp.rw_string}} group network-admin
+
+ntp server {{ntp_server}}
+
+{% for route in routes %}
+{{ route }}
+{%- endfor %}
+
+{% for vlan in vlans %}
+vlan {{vlan.id}}
+{%- if vlan.name %}
+  name {{vlan.name}}
+{%- endif %}
+{%- endfor %}
+
+vrf context {{vrf_name}}
+  ip domain-name {{domain}}
+  {{route}}
+
+
+
+{%- for interface in interfaces %}
+interface {{interface.intf}}
+  {{interface.switchport}}
+{%- if interface.switchport == 'no switchport' %}
+  ip address {{interface.ip}}
+{%- endif %}
+{%- if interface.switchport == 'switchport' %}
+  switchport mode {{interface.mode}}
+  switchport trunk native vlan {{interface.native_vlan}}
+  switchport trunk allowed vlan {{ interface.vlan_range}}
+{% endif %}
+  {{interface.state}}
+{% endfor -%}
+
+interface mgmt0
+vrf member management
+ip address {{ mgmt_ip }}
