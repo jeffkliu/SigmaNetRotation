@@ -14,6 +14,7 @@ if __name__ == "__main__":
     else:
         args = sys.argv
         stats = json.loads(clid('show interface'))
+        print stats
 
         if args[1] == 'help':
             print '\n Available Options: ' + '\n - crc ' + '\n - runts\n - coll\n'
